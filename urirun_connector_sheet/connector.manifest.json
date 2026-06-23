@@ -1,12 +1,73 @@
 {
   "id": "sheet",
   "name": "Spreadsheet I/O (XLSX/CSV)",
-  "uriSchemes": ["sheet"],
+  "uriSchemes": [
+    "sheet"
+  ],
   "status": "available",
   "category": "Accounting",
   "summary": "Read and write XLSX/CSV over sheet:// URIs without libreoffice. CSV via stdlib (always works); XLSX via openpyxl (pure Python). Reads return {columns, rows}; writes take rows and pick CSV/XLSX from the extension, with an optional totals footer. Pairs with invoice://ksef:// to emit accountant-ready Excel.",
   "description": "sheet:// makes spreadsheet I/O a first-class URI. sheet://host/file/query/read returns {columns, rows} from a .xlsx (any tab) or .csv — for ingesting bank statements and accounting exports. sheet://host/file/command/write writes a list of row dicts to .xlsx or .csv (chosen by extension), with an optional per-column SUM footer — for turning parsed invoice / KSeF VAT-register rows into an Excel an accountant opens. sheet://host/file/query/info lists sheets + dimensions. CSV needs no extra deps; XLSX needs openpyxl (pip).",
-  "requires": {"system": [], "python": ["urirun"], "optional": ["openpyxl for .xlsx (CSV works without it)"]},
-  "keywords": ["xlsx", "csv", "excel", "openpyxl", "spreadsheet", "accounting", "ksiegowosc", "bank-statement"],
-  "publisher": "if-uri"
+  "requires": {
+    "system": [],
+    "python": [
+      "urirun"
+    ],
+    "optional": [
+      "openpyxl for .xlsx (CSV works without it)"
+    ]
+  },
+  "keywords": [
+    "xlsx",
+    "csv",
+    "excel",
+    "openpyxl",
+    "spreadsheet",
+    "accounting",
+    "ksiegowosc",
+    "bank-statement"
+  ],
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  },
+  "routes": [
+    "sheet://host/file/query/read",
+    "sheet://host/file/command/write",
+    "sheet://host/file/query/info"
+  ],
+  "useCases": [
+    "Read a bank statement or accounting export as columns + rows.",
+    "Write parsed invoice / VAT-register rows to an XLSX an accountant opens.",
+    "List the sheets and dimensions of a workbook."
+  ],
+  "examples": [
+    {
+      "title": "Read a sheet",
+      "uri": "sheet://host/file/query/read",
+      "payload": {
+        "path": "/data/wyciag.xlsx"
+      }
+    },
+    {
+      "title": "Write rows",
+      "uri": "sheet://host/file/command/write",
+      "payload": {
+        "path": "/out/rejestr-vat.xlsx",
+        "rows": [
+          {
+            "nip": "123",
+            "gross": 123.0
+          }
+        ]
+      }
+    }
+  ],
+  "provenance": "verified",
+  "docsUrl": "https://github.com/if-uri/urirun-connector-sheet",
+  "install": {
+    "mode": "urirun-extra",
+    "pipSpec": "urirun-connector-sheet @ git+https://github.com/if-uri/urirun-connector-sheet.git@v0.1.0"
+  }
 }
