@@ -33,9 +33,9 @@
     "github": "https://github.com/if-uri"
   },
   "routes": [
-    "sheet://host/file/query/read",
     "sheet://host/file/command/write",
-    "sheet://host/file/query/info"
+    "sheet://host/file/query/info",
+    "sheet://host/file/query/read"
   ],
   "useCases": [
     "Read a bank statement or accounting export as columns + rows.",
@@ -69,5 +69,8 @@
   "install": {
     "mode": "urirun-extra",
     "pipSpec": "urirun-connector-sheet @ git+https://github.com/if-uri/urirun-connector-sheet.git@v0.1.0"
-  }
+  },
+  "adapterKinds": [
+    "local-function"
+  ]
 }
