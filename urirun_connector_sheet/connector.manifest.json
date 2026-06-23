@@ -1,0 +1,12 @@
+{
+  "id": "sheet",
+  "name": "Spreadsheet I/O (XLSX/CSV)",
+  "uriSchemes": ["sheet"],
+  "status": "available",
+  "category": "Accounting",
+  "summary": "Read and write XLSX/CSV over sheet:// URIs without libreoffice. CSV via stdlib (always works); XLSX via openpyxl (pure Python). Reads return {columns, rows}; writes take rows and pick CSV/XLSX from the extension, with an optional totals footer. Pairs with invoice://ksef:// to emit accountant-ready Excel.",
+  "description": "sheet:// makes spreadsheet I/O a first-class URI. sheet://host/file/query/read returns {columns, rows} from a .xlsx (any tab) or .csv — for ingesting bank statements and accounting exports. sheet://host/file/command/write writes a list of row dicts to .xlsx or .csv (chosen by extension), with an optional per-column SUM footer — for turning parsed invoice / KSeF VAT-register rows into an Excel an accountant opens. sheet://host/file/query/info lists sheets + dimensions. CSV needs no extra deps; XLSX needs openpyxl (pip).",
+  "requires": {"system": [], "python": ["urirun"], "optional": ["openpyxl for .xlsx (CSV works without it)"]},
+  "keywords": ["xlsx", "csv", "excel", "openpyxl", "spreadsheet", "accounting", "ksiegowosc", "bank-statement"],
+  "publisher": "if-uri"
+}
