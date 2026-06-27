@@ -1,0 +1,76 @@
+{
+  "contracts": {
+    "file/query/read": {
+      "version": "v1",
+      "effect": "query",
+      "reversible": false,
+      "inp": { "path": "str", "sheet": "?str", "max_rows": "?int" },
+      "out": {
+        "connector": "const:sheet",
+        "path": "str",
+        "columns": "list",
+        "rowCount": "int",
+        "sheet": "?str",
+        "rows": "list"
+      },
+      "errors": ["file-not-found", "unsupported-extension", "dependency-missing"],
+      "examples": [
+        {
+          "payload": { "path": "/tmp/data.csv" },
+          "result": {
+            "ok": true, "connector": "sheet", "path": "/tmp/data.csv",
+            "columns": ["a", "b"], "rowCount": 1, "sheet": null,
+            "rows": [{ "a": "1", "b": "2" }]
+          }
+        }
+      ]
+    },
+    "file/command/write": {
+      "version": "v1",
+      "effect": "command",
+      "reversible": false,
+      "inp": { "path": "str", "rows": "?list", "columns": "?list", "sheet": "?str", "totals": "?list" },
+      "out": {
+        "connector": "const:sheet",
+        "path": "str",
+        "rows": "int",
+        "columns": "list",
+        "bytes": "int"
+      },
+      "errors": ["unsupported-extension", "dependency-missing"],
+      "examples": [
+        {
+          "payload": { "path": "/tmp/out.csv", "rows": [{ "a": 1 }] },
+          "result": {
+            "ok": true, "connector": "sheet", "path": "/tmp/out.csv",
+            "rows": 1, "columns": ["a"], "bytes": 4
+          }
+        }
+      ]
+    },
+    "file/query/info": {
+      "version": "v1",
+      "effect": "query",
+      "reversible": false,
+      "inp": { "path": "str" },
+      "out": {
+        "connector": "const:sheet",
+        "kind": "enum:csv|xlsx",
+        "columns": "?list",
+        "rowCount": "?int",
+        "sheets": "?list"
+      },
+      "errors": ["file-not-found", "dependency-missing"],
+      "examples": [
+        {
+          "payload": { "path": "/tmp/data.csv" },
+          "result": {
+            "ok": true, "connector": "sheet", "kind": "csv",
+            "columns": ["a", "b"], "rowCount": 0
+          }
+        }
+      ]
+    }
+  },
+  "wires": []
+}
