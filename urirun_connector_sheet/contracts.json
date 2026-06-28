@@ -13,7 +13,7 @@
         "sheet": "?str",
         "rows": "list"
       },
-      "errors": ["file-not-found", "unsupported-extension", "dependency-missing"],
+      "errors": ["precondition-unmet"],
       "examples": [
         {
           "payload": { "path": "/tmp/data.csv" },
@@ -37,7 +37,7 @@
         "columns": "list",
         "bytes": "int"
       },
-      "errors": ["unsupported-extension", "dependency-missing"],
+      "errors": ["precondition-unmet"],
       "examples": [
         {
           "payload": { "path": "/tmp/out.csv", "rows": [{ "a": 1 }] },
@@ -60,7 +60,7 @@
         "rowCount": "?int",
         "sheets": "?list"
       },
-      "errors": ["file-not-found", "dependency-missing"],
+      "errors": ["precondition-unmet"],
       "examples": [
         {
           "payload": { "path": "/tmp/data.csv" },
